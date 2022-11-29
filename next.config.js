@@ -1,4 +1,4 @@
-const PROXY = process.env.PROXY
+const PROXY = process.env
 
 console.log('base proxy', PROXY);
 
@@ -9,7 +9,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: `${PROXY}/:path*` // Proxy to Backend
+        destination: `https://dev.api.face2face.chenhua.fan/:path*` // Proxy to Backend
       }
     ]
   }
