@@ -1,4 +1,4 @@
-const PROXY = process.env
+const PROXY = process.env.backend_proxy
 
 console.log('base proxy', PROXY);
 
