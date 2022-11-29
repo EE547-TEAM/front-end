@@ -9,7 +9,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: `https://dev.api.face2face.chenhua.fan/:path*` // Proxy to Backend
+        destination: `${PROXY}/:path*` // Proxy to Backend
       }
     ]
   }
