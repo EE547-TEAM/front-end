@@ -3,6 +3,9 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+
+  fetch('/api/users/').then(data => console.log('Home', data));
+
   return (
     <div className={styles.container}>
       <Head>
