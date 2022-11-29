@@ -1,6 +1,6 @@
 const PROXY = process.env.PROXY
 
-console.log(PROXY);
+console.log('base proxy', PROXY);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
