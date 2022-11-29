@@ -4,7 +4,9 @@ import styles from '../styles/Home.module.css'
 
 export default function Home() {
 
-  fetch('/api/users/').then(data => console.log('Home', data));
+  fetch('/api/')
+    .then(res => res.json())
+    .then(data => console.log('user', data))
 
   return (
     <div className={styles.container}>
