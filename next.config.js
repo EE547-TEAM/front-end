@@ -1,4 +1,4 @@
-const PROXY = process.env.backend_proxy
+const PROXY = process.env.backend_proxy || "http://localhost:3000";
 
 console.log('base proxy', PROXY);
 

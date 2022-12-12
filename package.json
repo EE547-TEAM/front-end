@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "backend_proxy=http://localhost:3001 next dev",
+    "dev": "next dev",
+    "dev-win": "npx next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
