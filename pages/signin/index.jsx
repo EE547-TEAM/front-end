@@ -25,10 +25,7 @@ export default function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const [doLoginQuery, { loading: logining }] = useLazyQuery(LOGIN, {
-        variables: { email, password },
-        notifyOnNetworkStatusChange: true,
-    })
+    const [doLoginQuery, { loading: logining }] = useLazyQuery(LOGIN);
 
     const [loginError, setLoginError] = useState('');
     const THEME_COLOR = useMemo(() => loginError ? 'error' : 'primary', [loginError])
@@ -37,14 +34,17 @@ export default function SignIn() {
     const handleSubmit = useCallback((event) => {
 
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        setEmail(data.get('email'));
-        setPassword(data.get('password'));
+        const form = new FormData(event.currentTarget);
 
         async function login() {
             if (logining)
                 return;
-            const { error, data } = await doLoginQuery();
+            const { error, data } = await doLoginQuery({
+                variables: {
+                    email: form.get('email'),
+                    password: form.get('password')
+                }
+            });
             if (error)
                 setLoginError(error.message);
             else {

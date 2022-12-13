@@ -22,14 +22,7 @@ const theme = createTheme();
 
 export default function SignUp() {
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const [doRegisterMutation] = useMutation(REGISTER, {
-        variables: { user: { name, email, password } },
-        notifyOnNetworkStatusChange: true,
-    })
+    const [doRegisterMutation] = useMutation(REGISTER);
 
     const [registerError, setRegisterError] = useState('');
     const THEME_COLOR = useMemo(() => registerError ? 'error' : 'primary', [registerError])
@@ -38,17 +31,22 @@ export default function SignUp() {
     const handleSubmit = useCallback((event) => {
 
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        setEmail(data.get('email'));
-        setPassword(data.get('password'));
-        setName(`${data.get('firstName')} ${data.get('lastName')}`);
+        const form = new FormData(event.currentTarget);
 
         let loading = false;
         async function register() {
             try {
                 if (loading) return;
                 loading = true;
-                const { data } = await doRegisterMutation();
+                const { data } = await doRegisterMutation({
+                    variables: { 
+                        user: { 
+                            name: `${form.get('firstName')} ${form.get('lastName')}`, 
+                            email: form.get('email'), 
+                            password: form.get('password')
+                        } 
+                    },
+                });
                 setRegisterError('');
                 // todo: save login globlly
                 console.log("success", data.user)
