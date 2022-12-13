@@ -18,10 +18,13 @@ import { useState, useMemo, useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import useAlert from '../../hooks/ui/alert';
 import { setLoginUser } from '../../hooks/scripts/useSessionUser';
+import { useRouter } from 'next/router'
 
 const theme = createTheme();
 
 export default function SignUp() {
+    
+    const router = useRouter();
 
     const [doRegisterMutation] = useMutation(REGISTER);
 

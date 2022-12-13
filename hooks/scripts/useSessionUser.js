@@ -10,6 +10,7 @@ export function useGetLoginUser() {
         return useRef.current;
 
     // under browser
+    console.log('run?');
     const newUser = JSON.parse(sessionStorage.getItem(LOGIN_USER));
     if (newUser === null || userRef.current == null || newUser._id !== userRef.current._id) {
         userRef.current = newUser;

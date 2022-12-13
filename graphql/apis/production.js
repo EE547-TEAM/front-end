@@ -1,111 +1,190 @@
 const { gql } = require("@apollo/client");
 
-const PRODUCTION_CREATE = gql`
-    mutation productionCreate($inputProduction: InputProduction!) {
-        productionCreate(inputProduction: $inputProduction) {
-            _id
-            userId
-            price
-            name
-            condition
-            quantity
-            description
-            addressId
-            isActivate
-            viewTime
-    }
-}`;
-const PRODUCTION_BY_ID = gql`
-    query productionById($pid: ID!) {
-        productionById(pid: $pid) {
-            _id
-            userId
-            price
-            name
-            condition
-            quantity
-            description
-            addressId
-            isActivate
-            viewTime
-    }
-}`;
 
-const PRODUCTION_BY_USER = gql`
-    query productionByUser($uid: ID!, $activate: Boolean!) {
-        productionByUser(uid: $uid, activate: $activate) {
-            _id
-            userId
-            price
-            name
-            condition
-            quantity
-            description
-            addressId
-            isActivate
-            viewTime
-    }
-}`;
 
-const PRODUCTION_BY_NAME = gql`
+const GET_PRODUCTION_IDS_BY_NAME = gql`
     query productionByName($name: String!, $activate: Boolean!) {
         productions: productionByName(name: $name, activate: $activate) {
             _id
-            userId
+    }
+}`;
+
+const PRODUCTION_CREATE = `
+    mutation productionCreate($inputProduction: InputProduction!) {
+        productionCreate(inputProduction: $inputProduction) {
+            _id
+            user {
+                _id
+                name
+                email
+                buyerRate
+                sellerRate
+            }
             price
             name
             condition
             quantity
             description
-            addressId
+            address {
+                _id
+                is_default
+                content
+            }
+            isActivate
+            viewTime
+    }
+}`;
+const PRODUCTION_BY_ID = `
+    query productionById($pid: ID!) {
+        production: productionById(pid: $pid) {
+            _id
+            user {
+                _id
+                name
+                email
+                buyerRate
+                sellerRate
+            }
+            price
+            name
+            condition
+            quantity
+            description
+            address {
+                _id
+                is_default
+                content
+            }
             isActivate
             viewTime
     }
 }`;
 
-const PRODUCTION_UPDATE = gql`
+const PRODUCTION_BY_USER = `
+    query productionByUser($uid: ID!, $activate: Boolean!) {
+        productionByUser(uid: $uid, activate: $activate) {
+            _id
+            user {
+                _id
+                name
+                email
+                buyerRate
+                sellerRate
+            }
+            price
+            name
+            condition
+            quantity
+            description
+            address {
+                _id
+                is_default
+                content
+            }
+            isActivate
+            viewTime
+    }
+}`;
+
+const PRODUCTION_BY_NAME = `
+    query productionByName($name: String!, $activate: Boolean!) {
+        productions: productionByName(name: $name, activate: $activate) {
+            _id
+            user {
+                _id
+                name
+                email
+                buyerRate
+                sellerRate
+            }
+            price
+            name
+            condition
+            quantity
+            description
+            address {
+                _id
+                is_default
+                content
+            }
+            isActivate
+            viewTime
+    }
+}`;
+
+const PRODUCTION_UPDATE = `
     mutation productionUpdate($pid: ID!, $data: InputProductUpdate!) {
         productionUpdate(pid: $pid, data: $data) {
             _id
-            userId
+            user {
+                _id
+                name
+                email
+                buyerRate
+                sellerRate
+            }
             price
             name
             condition
             quantity
             description
-            addressId
+            address {
+                _id
+                is_default
+                content
+            }
             isActivate
             viewTime
     }
 }`;
 
-const PRODUCTION_DELETE = gql`
+const PRODUCTION_DELETE = `
     mutation productionDelete($pid: ID!) {
         productionDelete(pid: $pid) {
             _id
-            userId
+            user {
+                _id
+                name
+                email
+                buyerRate
+                sellerRate
+            }
             price
             name
             condition
             quantity
             description
-            addressId
+            address {
+                _id
+                is_default
+                content
+            }
             isActivate
             viewTime
     }
 }`;
 
-const PRODUCTION_VIEWTIME_INCREMENT = gql`
+const PRODUCTION_VIEWTIME_INCREMENT = `
     mutation productionViewTimeincrement($pid: ID!) {
         productionViewTimeincrement(pid: $pid) {
             _id
-            userId
+            user {
+                _id
+                name
+                email
+                buyerRate
+                sellerRate
+            }
             price
             name
             condition
             quantity
             description
-            addressId
+            address {
+                _id
+                is_default
+                content
+            }
             isActivate
             viewTime
     }
@@ -118,6 +197,7 @@ module.exports = {
     PRODUCTION_BY_NAME,
     PRODUCTION_UPDATE,
     PRODUCTION_DELETE,
-    PRODUCTION_VIEWTIME_INCREMENT 
+    PRODUCTION_VIEWTIME_INCREMENT,
+    GET_PRODUCTION_IDS_BY_NAME
 
 }
