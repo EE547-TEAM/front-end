@@ -23,6 +23,7 @@ export default function ProductionDetail({ preFetchData }) {
     const router = useRouter();
 
     const loginUser = useGetLoginUser();
+    console.log('loginUser', loginUser, production);
     // is owner
     const isSelfView = useMemo(() => {
         if (!loginUser) return false;

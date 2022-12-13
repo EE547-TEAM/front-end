@@ -17,7 +17,6 @@ import Copyright from '../../components/Copyright';
 import { useState, useMemo, useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import useAlert from '../../hooks/ui/alert';
-import { setLoginUser } from '../../hooks/scripts/useSessionUser';
 import { useRouter } from 'next/router'
 
 const theme = createTheme();
@@ -53,10 +52,7 @@ export default function SignUp() {
                 });
                 setRegisterError('');
                 // todo: save login globlly
-                console.log("success", data.user)
-                // go
-                setLoginUser({ user: data.user });
-                router.push('/');
+                router.push('/signin');
             } catch (error) {
                 setRegisterError(error.message);
             } finally {

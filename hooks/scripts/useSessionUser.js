@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-export const LOGIN_USER = 'login_user'
+export const LOGIN_USER = 'loginUser';
 
 export function useGetLoginUser() {
 
@@ -11,18 +11,10 @@ export function useGetLoginUser() {
 
     // under browser
     console.log('run?');
-    const newUser = JSON.parse(sessionStorage.getItem(LOGIN_USER));
+    const newUser = JSON.parse(localStorage.getItem(LOGIN_USER));
     if (newUser === null || userRef.current == null || newUser._id !== userRef.current._id) {
         userRef.current = newUser;
     }
 
     return userRef.current;
-}
-
-export function removeLoginUser() {
-    sessionStorage.removeItem(LOGIN_USER);
-}
-
-export function setLoginUser({ user }) {
-    sessionStorage.setItem(LOGIN_USER, JSON.stringify(user));
 }
