@@ -1,7 +1,7 @@
 const { gql } = require("@apollo/client");
 
 const GET_CHAT_BY_USER = gql`
-    query chatsByUser($uid: ID) {
+    query chatsByUser($uid: ID!) {
         user: chatsByUser(uid: $uid) {
             _id
             participant
@@ -9,7 +9,7 @@ const GET_CHAT_BY_USER = gql`
 }`;
 
 const CHAT_CREATE = gql`
-    mutation chatCreate($pids: [ID]) {
+    mutation chatCreate($pids: [ID]!) {
         chatCreate(pids: $pids) {
             _id
             name

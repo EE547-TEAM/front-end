@@ -1,7 +1,7 @@
 const { gql } = require("@apollo/client");
 
 const ADDRESS_BY_ID = gql`
-    query addressById($aid: ID) {
+    query addressById($aid: ID!) {
         addressById(aid: $aid) {
             _id: ID
             content: String!
@@ -11,7 +11,7 @@ const ADDRESS_BY_ID = gql`
 }`;
 
 const ADDRESS_CREATE = gql`
-    mutation addressCreate($inputAddress: InputAddress) {
+    mutation addressCreate($inputAddress: InputAddress!) {
         addressCreate(inputUser: $inputAddress) {
             _id
             content
