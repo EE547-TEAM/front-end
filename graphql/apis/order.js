@@ -18,7 +18,7 @@ const ORDER_BY_ID = gql`
 }`;
 
 const ORDER_BY_SELLER = gql`
-    query orderBySeller($uid: ID!,$status: OrderStatusEnum ) {
+    query orderBySeller($uid: ID!,$status: OrderStatusEnum!) {
         orderBySeller(uid: $uid, status: $status) {
             _id
             productionID
@@ -34,8 +34,8 @@ const ORDER_BY_SELLER = gql`
     }
 }`;
 
-const ORDER_BY_bUYER= gql`
-    query orderByBuyer($uid: ID!,$status: OrderStatusEnum ) {
+const ORDER_BY_BUYER= gql`
+    query orderByBuyer($uid: ID!,$status: OrderStatusEnum) {
         orderByBuyer(uid: $uid, status: $status) {
             _id
             productionID
@@ -122,7 +122,7 @@ const ORDER_TRADING_TO_REJECT = gql`
 module.exports = {
     ORDER_BY_ID,
     ORDER_BY_SELLER,
-    ORDER_BY_bUYER,
+    ORDER_BY_BUYER,
     ORDER_CREATE,
     ORDER_CREATED_TO_TRADING,
     ORDER_TRADING_TO_CONFIRM,

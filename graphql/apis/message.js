@@ -1,7 +1,7 @@
 const { gql } = require("@apollo/client");
 
 const MESSAGE_BY_CHAT = gql`
-    query messageByChat($cid: ID) {
+    query messageByChat($cid: ID!) {
         messageByChat(cid: $cid) {
             _id
             chatId
@@ -25,7 +25,7 @@ const LAST_MESSAGE_BY_CHAT = gql`
 const MESSAGE_CREATE = gql`
     mutation messageCreate($inputMessage: InputMessage!) {
         messageCreate(inputUser: $inputMessage) {
-            id
+            _id
             chatId
             senderId
             content
@@ -36,7 +36,7 @@ const MESSAGE_CREATE = gql`
 const MESSAGE_UPDATE = gql`
     mutation messageUpdate($mid: ID!) {
         messageUpdate(mid: $mid) {
-            id
+            _id
             chatId
             senderId
             content
