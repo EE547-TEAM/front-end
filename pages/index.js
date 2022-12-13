@@ -1,35 +1,13 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-
-import { useQuery, gql } from "@apollo/client";
 import Link from 'next/link';
 import { useMemo } from 'react';
 
-const AuthQuery = (email, password) => gql`
-  {
-    user: authority(email: ${email}, password: ${password}) {
-      _id
-      name
-      email
-      buyerRate
-      sellerRate
-    }
-  }
-`;
+
 
 export default function Home() {
 
-  const { data, loading, error } = useQuery(AuthQuery('"samcoder1996@gmail.com"', '"d123456f"'));
-
-  const toUserProfile = useMemo(() => {
-    if (loading) return null;
-    else {
-      const { name, _id } = data.user;
-      const formattedName = name.replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
-      return <Link href={`/user/${_id}`}>{formattedName}</Link>
-    }
-  }, [data, loading])
 
   return (
     <div className={styles.container}>
@@ -41,7 +19,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome! {toUserProfile}
+          Welcome to <Link href='/'>Face2Face</Link> !
         </h1>
         <p>F2F is a <b>face-to-face</b> trading platform for second-hand goods</p>
       </main>

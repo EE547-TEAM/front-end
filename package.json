@@ -13,6 +13,8 @@
     "@apollo/client": "^3.7.2",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.10.16",
+    "@mui/joy": "^5.0.0-alpha.57",
     "@mui/material": "^5.10.16",
     "eslint-config-next": "13.0.5",
     "graphql": "^16.6.0",
