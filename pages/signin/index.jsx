@@ -17,19 +17,27 @@ import { useCallback } from 'react';
 import { useMemo } from 'react';
 import Copyright from '../../components/Copyright';
 import useAlert from '../../hooks/ui/alert';
+import { useRouter } from 'next/router'
+import { setLoginUser, useGetLoginUser } from '../../hooks/scripts/useSessionUser';
 
 const theme = createTheme();
 
 export default function SignIn() {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const router = useRouter();
 
-    const [doLoginQuery, { loading: logining }] = useLazyQuery(LOGIN, {
-        variables: { email, password },
-        notifyOnNetworkStatusChange: true,
-    })
+    const loginUser = useGetLoginUser();
 
+    console.log("loginUser", loginUser);
+
+    if (typeof window !== 'undefined' && loginUser !== null) {
+        router.push('/');
+    }
+
+    // login
+    const [doLoginQuery, { loading: logining }] = useLazyQuery(LOGIN);
+
+    // error
     const [loginError, setLoginError] = useState('');
     const THEME_COLOR = useMemo(() => loginError ? 'error' : 'primary', [loginError])
     const Alert = useAlert(loginError);
@@ -37,24 +45,29 @@ export default function SignIn() {
     const handleSubmit = useCallback((event) => {
 
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        setEmail(data.get('email'));
-        setPassword(data.get('password'));
+        const form = new FormData(event.currentTarget);
 
         async function login() {
             if (logining)
                 return;
-            const { error, data } = await doLoginQuery();
+            const { error, data } = await doLoginQuery({
+                variables: {
+                    email: form.get('email'),
+                    password: form.get('password')
+                }
+            });
             if (error)
                 setLoginError(error.message);
             else {
                 setLoginError('');
-                // todo: save login globlly
-                console.log("success", data.user)
+                console.log("success", data.user);
+                // go
+                setLoginUser({ user: data.user });
+                router.push('/');
             }
         }
         login()
-    }, [doLoginQuery, logining]);
+    }, [doLoginQuery, logining, router]);
 
     return (
         <ThemeProvider theme={theme}>

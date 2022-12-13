@@ -3,11 +3,12 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link';
 import { useMemo } from 'react';
-
-
+import Main from '../Layout/Main';
+import { Box, Button, Grid, IconButton, TextField, Typography } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export default function Home() {
-
 
   return (
     <div className={styles.container}>
@@ -17,12 +18,34 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <Link href='/'>Face2Face</Link> !
-        </h1>
-        <p>F2F is a <b>face-to-face</b> trading platform for second-hand goods</p>
+      <Main className={styles.main}>
+        <Box marginBottom={10}>
+          <Typography variant='h1'>
+             Welcome, <Link href='/'>Face2Face</Link>
+          </Typography>
+          <Typography variant='subtitle1'>
+            F2F is a <b>face-to-face</b> trading platform for second-hand goods
+          </Typography>
+        </Box>
+
+        <Grid container>
+          <Grid xs={10} md={8} lg={6}>
+            <TextField id="search-box" label="What's your interested?" variant='outlined' fullWidth placeholder='I feel lucky!' />
+          </Grid>
+        </Grid>
+      </Main>
+      <main>
+
       </main>
     </div>
   )
+}
+
+export async function getServerSideProps({ req, res }) {
+
+  console.log(req, res)
+
+  return {
+    props: {}, // Will be passed to the page component as props
+  }
 }
