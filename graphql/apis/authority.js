@@ -13,7 +13,7 @@ const LOGIN = gql`
 
 const REGISTER = gql`
     mutation register($user: InputUser!) {
-        register(inputUser: $user) {
+        user: register(inputUser: $user) {
             _id
             name
             email
