@@ -2,13 +2,42 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import Main from '../Layout/Main';
 import { Box, Button, Grid, IconButton, TextField, Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useLazyQuery } from '@apollo/client';
+import { PRODUCTION_BY_NAME } from '../graphql/apis';
 
 export default function Home() {
+
+  const [products, setProducts] = useState([]);
+
+  // search
+  const [doSearchProduct, { loading }] = useLazyQuery(PRODUCTION_BY_NAME, {
+    fetchPolicy: 'no-cache'
+  });
+
+  const onSearchInputChange = useCallback(async (event) => {
+    event.preventDefault();
+    const keyword = event.target.value;
+
+    if (keyword === '')
+      return;
+
+    const { error, data } = await doSearchProduct({
+      variables: {
+        name: keyword,
+        activate: true
+      },
+    });
+
+    if (!error) {
+      setProducts(data.productions);
+    }
+
+  }, [doSearchProduct]);
 
   return (
     <div className={styles.container}>
@@ -21,7 +50,7 @@ export default function Home() {
       <Main className={styles.main}>
         <Box marginBottom={10}>
           <Typography variant='h1'>
-             Welcome, <Link href='/'>Face2Face</Link>
+            Welcome, <Link href='/'>Face2Face</Link>
           </Typography>
           <Typography variant='subtitle1'>
             F2F is a <b>face-to-face</b> trading platform for second-hand goods
@@ -30,8 +59,12 @@ export default function Home() {
 
         <Grid container>
           <Grid xs={10} md={8} lg={6}>
-            <TextField id="search-box" label="What's your interested?" variant='outlined' fullWidth placeholder='I feel lucky!' />
+            <TextField id="search-box" label="What's your interested?" variant='outlined' fullWidth placeholder='I feel lucky!' onChange={onSearchInputChange} />
           </Grid>
+
+          {
+            products.map(product => product.address)
+          }
         </Grid>
       </Main>
       <main>
