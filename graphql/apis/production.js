@@ -48,8 +48,8 @@ const PRODUCTION_BY_USER = gql`
 }`;
 
 const PRODUCTION_BY_NAME = gql`
-    mutation productionByName($uid: ID!, $activate: Boolean!) {
-        productionByName(uid: $uid, activate: $activate) {
+    mutation productionByName($name: ID!, $activate: Boolean!) {
+        productionByName(name: $name, activate: $activate) {
             _id
             userId
             price
@@ -80,7 +80,7 @@ const PRODUCTION_UPDATE = gql`
 }`;
 
 const PRODUCTION_DELETE = gql`
-    query productionDelete($pid: ID!) {
+    mutation productionDelete($pid: ID!) {
         productionDelete(pid: $pid) {
             _id
             userId
@@ -96,7 +96,7 @@ const PRODUCTION_DELETE = gql`
 }`;
 
 const PRODUCTION_VIEWTIME_INCREMENT = gql`
-    query productionViewTimeincrement($pid: ID!) {
+    mutation productionViewTimeincrement($pid: ID!) {
         productionViewTimeincrement(pid: $pid) {
             _id
             userId

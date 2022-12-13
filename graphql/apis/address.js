@@ -3,10 +3,10 @@ const { gql } = require("@apollo/client");
 const ADDRESS_BY_ID = gql`
     query addressById($aid: ID!) {
         addressById(aid: $aid) {
-            _id: ID
-            content: String!
-            userId: ID!
-            is_default: Boolean
+            _id
+            content
+            userId
+            is_default
     }
 }`;
 

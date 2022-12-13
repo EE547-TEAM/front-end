@@ -66,11 +66,11 @@ const ORDER_CREATE = gql`
             addressFromId
             addressToId
     }
-}`
+}`;
 
-const UPDATE_ORDER = gql`
-    mutation updateOrder($inputOrder: InputOrder!) {
-        updateOrder(inputOrder: $inputOrder) {
+const ORDER_CREATED_TO_TRADING = gql`
+    mutation orderCreatedToTrading($oid: ID!) {
+        orderCreatedToTrading(oid: $oid) {
             _id
             productionID
             quantity
@@ -83,12 +83,48 @@ const UPDATE_ORDER = gql`
             addressFromId
             addressToId
     }
-}`
+}`;
+
+const ORDER_TRADING_TO_CONFIRM = gql`
+    mutation orderTradingToConfirm($oid: ID!) {
+        orderTradingToConfirm(oid: $oid) {
+            _id
+            productionID
+            quantity
+            buyerID
+            sellerID
+            status
+            tradingTimestamp
+            rejectTimestamp
+            confirmTimestamp
+            addressFromId
+            addressToId
+    }
+}`;
+
+const ORDER_TRADING_TO_REJECT = gql`
+    mutation orderTradingToReject($oid: ID!) {
+        orderTradingToReject(oid: $oid) {
+            _id
+            productionID
+            quantity
+            buyerID
+            sellerID
+            status
+            tradingTimestamp
+            rejectTimestamp
+            confirmTimestamp
+            addressFromId
+            addressToId
+    }
+}`;
 
 module.exports = {
     MATCH_ORDER_BY_ID,
     MATCH_ORDER_BY_SELLER,
     MATCH_ORDER_BY_bUYER,
-    UPDATE_ORDER,
-    ORDER_CREATE
+    ORDER_CREATE,
+    ORDER_CREATED_TO_TRADING,
+    ORDER_TRADING_TO_CONFIRM,
+    ORDER_TRADING_TO_REJECT,
 }
