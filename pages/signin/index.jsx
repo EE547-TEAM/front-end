@@ -22,16 +22,17 @@ import { setLoginUser, useGetLoginUser } from '../../hooks/scripts/useSessionUse
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignIn({ loginUser }) {
 
     const router = useRouter();
 
-    const loginUser = useGetLoginUser();
-
-    console.log("loginUser", loginUser);
-
-    if (typeof window !== 'undefined' && loginUser !== null) {
+    if (typeof window !== 'undefined' && loginUser._id !== undefined) {
+        localStorage.setItem(`loginUser`, JSON.stringify(loginUser));
         router.push('/');
+    }
+
+    if (typeof window !== 'undefined' && loginUser._id === undefined) {
+        localStorage.removeItem('loginUser');
     }
 
     // login
@@ -61,13 +62,11 @@ export default function SignIn() {
             else {
                 setLoginError('');
                 console.log("success", data.user);
-                // go
-                setLoginUser({ user: data.user });
-                router.push('/');
+                router.reload();
             }
         }
         login()
-    }, [doLoginQuery, logining, router]);
+    }, [doLoginQuery, logining]);
 
     return (
         <ThemeProvider theme={theme}>
@@ -133,4 +132,23 @@ export default function SignIn() {
             </Container>
         </ThemeProvider>
     );
+}
+
+
+export async function getServerSideProps(context) {
+
+    let loginUser = {};
+    try {
+        loginUser = await fetch('http://localhost:3000/verify', {
+            headers: {
+                cookie: context.req.headers.cookie
+            }
+        }).then(res => res.json());
+    } catch (error) {}
+
+    console.log(loginUser);
+
+    return {
+        props: { loginUser }, // will be passed to the page component as props
+    }
 }
