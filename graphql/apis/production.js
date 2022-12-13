@@ -48,7 +48,7 @@ const PRODUCTION_BY_USER = gql`
 }`;
 
 const PRODUCTION_BY_NAME = gql`
-    mutation productionByName($name: ID!, $activate: Boolean!) {
+query productionByName($name: String!, $activate: Boolean!) {
         productionByName(name: $name, activate: $activate) {
             _id
             userId

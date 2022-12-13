@@ -3,12 +3,13 @@ const { gql } = require("@apollo/client");
 const RATE_CREATE = gql`
     mutation rateCreate($inputRate: InputUser!) {
         rateCreate(inputRate: $inputRate) {
+            _id
             score
             orderId
             comment
-            fromUserId
-            toUserId
-            rateType
+            rateFromId
+            rateToId
+            Type
     }
 }`;
 
