@@ -54,16 +54,9 @@ const MATCH_ORDER_BY_bUYER= gql`
 const ORDER_CREATE = gql`
     mutation orderCreate($inputOrder: InputOrder!) {
         orderCreate(inputOrder: $inputOrder) {
-            _id
             productionID
             quantity
             buyerID
-            sellerID
-            status
-            tradingTimestamp
-            rejectTimestamp
-            confirmTimestamp
-            addressFromId
             addressToId
     }
 }`;

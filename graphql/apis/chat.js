@@ -17,7 +17,7 @@ const CHAT_CREATE = gql`
             buyerRate
             sellerRate
     }
-}`
+}`;
 
 module.exports = {
     GET_CHAT_BY_USER,
