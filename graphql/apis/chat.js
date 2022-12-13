@@ -12,10 +12,7 @@ const CHAT_CREATE = gql`
     mutation chatCreate($pids: [ID]!) {
         chatCreate(pids: $pids) {
             _id
-            name
-            email
-            buyerRate
-            sellerRate
+            participant
     }
 }`;
 
