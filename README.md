@@ -5,30 +5,45 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
+npm i 
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Guideline
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+`pages` main pages for NextJS
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+`graphql/*` all graphql definitions.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+# Development
 
-## Learn More
+First, we use the Github organization to help us manage our project progress, front-end/back-end repos,  actions (CI/CD), team role and permission.
 
-To learn more about Next.js, take a look at the following resources:
+Before we start the project, we add strict git branch restrictions, and Airbnb coding style to guarantee the consistency of style and quality of codes. Meanwhile, by adding a reviewer to the pull request, we can prevent disruptive updates. When we are coding, the Eslint will check automatically if our code meets the rules. Also when we save the file, Eslint will change all coding that doesn't fit the rules.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Team
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+* Admin Team: All permission
+* Dev Team: modify only
 
-## Deploy on Vercel
+  ![1670987391435](image/README/1670987391435.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Git Branch Policy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+`Dev` is the protected branch. Blow is the policies applied for this branch.
+
+![1670987305066](image/README/1670987305066.png)
+
+`Eslint` style check before commit (git precommit hook).
+
+`.github/hooks/eslint.sh` is the eslint pre-commit scripts.
+
+![1670987715878](image/README/1670987715878.png)
+
+### Workflow
+
+Our Action workflow is test, compile and development. After we commit our change, push commits to remote git repo and create a pull request on Github. The pull request will ask a reviewer to make sure if anything will affect the dev branch. Reviewer can reject the request or approve. After the reviewer approves the request then the authorized account (watcher) can merge the code into the development branch, which triggers an automatic deployment job.
+
+`.github/workflows/backend_deployment.yml` is the auto deployment workflow script.
+
+![1670987493670](image/README/1670987493670.png)
